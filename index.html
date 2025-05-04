@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Internet Archive Header</title>
+  <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header class="top-bar">
+    <div class="left">
+      <img src="https://openlibrary.org/static/images/ia-logo.svg" alt="Internet Archive Logo">
+    </div>
+    <div class="right">
+      <button class="donate">Donate <span class="heart">♥</span></button>
+      
+      <div class="language-wrapper">
+        <div class="language-selector" onclick="toggleDropdown()">
+          English (en)
+          <img src="https://openlibrary.org/static/images/language-icon.svg" alt="Translate Icon">
+          <span class="arrow">▼</span>
+        </div>
+        <ul class="language-dropdown" id="languageDropdown">
+          <li>Français (fr)</li>
+          <li>Deutsch (de)</li>
+          <li>Español (es)</li>
+          <li>中文 (zh)</li>
+          <li>Русский (ru)</li>
+        </ul>
+      </div>
+
+    </div>
+  </header>
+
+  <script>
+    function toggleDropdown() {
+      document.getElementById('languageDropdown').classList.toggle('show');
+    }
+
+
+    window.onclick = function(event) {
+      if (!event.target.closest('.language-wrapper')) {
+        document.getElementById('languageDropdown').classList.remove('show');
+      }
+    }
+  </script>
+
+
+<header class="ol-header">
+  <div class="ol-logo">
+    <img src="https://openlibrary.org/static/images/openlibrary-logo-tighter.svg" alt="Open Sign" class="ol-logo-sign" />
+  </div>
+
+  <nav class="ol-nav">
+    <a href="#">My Books</a>
+    <div class="ol-dropdown">
+      <button class="ol-dropbtn">Browse ▾</button>
+      <div class="ol-dropdown-content">
+        <a href="#">Subjects</a>
+        <a href="#">Trending</a>
+        <a href="#">New Releases</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="ol-search">
+    <div class="ol-dropdown">
+      <button class="ol-dropbtn">All ▾</button>
+      <div class="ol-dropdown-content">
+        <a href="#">Title</a>
+        <a href="#">Author</a>
+        <a href="#">Subject</a>
+      </div>
+    </div>
+    <input type="text" placeholder="Search" />
+    <button class="ol-search-icon"><i class="fa-solid fa-magnifying-glass"></i></button>
+  </div>
+
+  <div class="ol-auth">
+    <a href="#">Log In</a>
+    <button class="ol-signup">Sign Up</button>
+    <button class="ol-menu" onclick="toggleBurger()">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="ol-burger-dropdown" id="olBurgerDropdown">
+      <a href="#">My Books</a>
+      <a href="#">Browse</a>
+      <a href="#">Log In</a>
+      <a href="#">Sign Up</a>
+    </div>
+  </div>
+</header>
+
+
+<script>
+  function toggleBurger() {
+    document.getElementById('olBurgerDropdown').classList.toggle('show');
+  }
+
+  window.addEventListener('click', function (e) {
+    if (!e.target.closest('.ol-auth')) {
+      document.getElementById('olBurgerDropdown').classList.remove('show');
+    }
+  });
+</script>
+
+  
+
+<section class="ol-carousel">
+  <h2 class="ol-carousel-title">Welcome to Open Library</h2>
+  <div class="ol-carousel-container">
+    <button class="ol-carousel-nav left" onclick="moveSlide(-1)">&#10094;</button>
+
+    <div class="ol-carousel-track-wrapper">
+      <div class="ol-carousel-track" id="carouselTrack">
+       
+        <div class="ol-carousel-item">
+          <img src="https://cdn-icons-png.flaticon.com/512/892/892339.png" alt="">
+          <h3>Read Free Books</h3>
+          <p>Millions of free books online.</p>
+        </div>
+        <div class="ol-carousel-item">
+          <img src="https://cdn-icons-png.flaticon.com/512/747/747310.png" alt="">
+          <h3>Set Reading Goals</h3>
+          <p>Track your yearly reading targets.</p>
+        </div>
+        <div class="ol-carousel-item">
+          <img src="https://cdn-icons-png.flaticon.com/512/2601/2601940.png" alt="">
+          <h3>Track Favorite Books</h3>
+          <p>Use lists and logs to organize.</p>
+        </div>
+        <div class="ol-carousel-item">
+          <img src="https://cdn-icons-png.flaticon.com/512/1077/1077042.png" alt="">
+          <h3>Join the Community</h3>
+          <p>Connect with fellow readers.</p>
+        </div>
+        <div class="ol-carousel-item">
+          <img src="https://cdn-icons-png.flaticon.com/512/5977/5977588.png" alt="">
+          <h3>Bookmark Pages</h3>
+          <p>Never lose your reading place.</p>
+        </div>
+        <div class="ol-carousel-item">
+          <img src="https://cdn-icons-png.flaticon.com/512/1828/1828774.png" alt="">
+          <h3>Write Reviews</h3>
+          <p>Share your thoughts on books.</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="ol-carousel-nav right" onclick="moveSlide(1)">&#10095;</button>
+  </div>
+</section>
+
+
+<script>
+  let currentSlide = 0;
+
+  function moveSlide(direction) {
+    const track = document.getElementById("carouselTrack");
+    const items = track.querySelectorAll(".ol-carousel-item");
+    const itemWidth = items[0].offsetWidth;
+    const visibleCount = getVisibleItemCount();
+    const totalItems = items.length;
+    const maxSlide = totalItems - visibleCount;
+
+    currentSlide += direction;
+    if (currentSlide < 0) currentSlide = 0;
+    if (currentSlide > maxSlide) currentSlide = maxSlide;
+
+    track.style.transform = `translateX(-${currentSlide * itemWidth}px)`;
+  }
+
+  function getVisibleItemCount() {
+    const width = window.innerWidth;
+    if (width < 600) return 1;
+    if (width < 900) return 2;
+    return 3;
+  }
+
+  window.addEventListener("resize", () => moveSlide(0));
+</script>
+
+
+
+
+
+<section class="book-carousel">
+  <h2 class="book-carousel-title">Trending Books</h2>
+  <div class="book-carousel-container">
+    <button class="book-carousel-nav left" onclick="moveBookSlide(-1)">&#10094;</button>
+
+    <div class="book-carousel-track-wrapper">
+      <div class="book-carousel-track" id="bookCarouselTrack">
+      
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/10523358-L.jpg" alt="Book 1">
+          <p>Eric Robertson</p>
+          <span class="status not">Not in Library</span>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/8225261-L.jpg" alt="Book 2">
+          <p>Robert Kiyosaki</p>
+          <span class="status not">Not in Library</span>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/8595540-L.jpg" alt="Book 3">
+          <p>George R. R. Martin</p>
+          <span class="status out">Checked Out</span>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/8311976-L.jpg" alt="Book 4">
+          <p>E. L. James</p>
+          <span class="status out">Checked Out</span>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/10958341-L.jpg" alt="Book 5">
+          <p>Palle Vasu</p>
+          <span class="status not">Not in Library</span>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/11608075-L.jpg" alt="Book 6">
+          <p>Rithvik Singh</p>
+          <span class="status not">Not in Library</span>
+        </div>
+      
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/10423567-L.jpg" alt="Book 7">
+          <p>Author 7</p>
+          <span class="status not">Not in Library</span>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/10188989-L.jpg" alt="Book 8">
+          <p>Author 8</p>
+          <span class="status not">Not in Library</span>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/10663867-L.jpg" alt="Book 9">
+          <p>Author 9</p>
+          <span class="status out">Checked Out</span>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/10577463-L.jpg" alt="Book 10">
+          <p>Author 10</p>
+          <span class="status not">Not in Library</span>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/10825788-L.jpg" alt="Book 11">
+          <p>Author 11</p>
+          <span class="status not">Not in Library</span>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/11023234-L.jpg" alt="Book 12">
+          <p>Author 12</p>
+          <span class="status out">Checked Out</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="book-carousel-nav right" onclick="moveBookSlide(1)">&#10095;</button>
+  </div>
+</section>
+
+
+
+
+<script>
+  let currentBookPage = 0;
+
+  function moveBookSlide(direction) {
+    const track = document.getElementById("bookCarouselTrack");
+    const items = track.querySelectorAll(".book-card");
+    const itemsPerPage = 6;
+    const itemWidth = items[0].offsetWidth;
+    const totalPages = Math.ceil(items.length / itemsPerPage);
+
+    currentBookPage += direction;
+    if (currentBookPage < 0) currentBookPage = 0;
+    if (currentBookPage >= totalPages) currentBookPage = totalPages - 1;
+
+    track.style.transform = `translateX(-${currentBookPage * itemsPerPage * itemWidth}px)`;
+  }
+
+  window.addEventListener("resize", () => moveBookSlide(0));
+</script>
+
+
+
+
+
+<section class="book-carousel">
+  <h2 class="book-carousel-title">Classic Books</h2>
+  <div class="book-carousel-container">
+    <button class="book-carousel-nav left" onclick="moveClassicSlide(-1)">&#10094;</button>
+
+    <div class="book-carousel-track-wrapper">
+      <div class="book-carousel-track" id="classicCarouselTrack">
+     
+        <div class="book-card">
+          <img src="https://www.gutenberg.org/cache/epub/27577/pg27577.cover.medium.jpg" alt="Book 1">
+          <p>Three Hours after Marriage</p>
+          <button class="read-btn">Read</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/6979866-L.jpg" alt="Book 2">
+          <p>Zaire - Voltaire</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/8231996-L.jpg" alt="Book 3">
+          <p>Sister Carrie</p>
+          <button class="read-btn">Read</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/12634556-L.jpg" alt="Book 4">
+          <p>Dream of the Red Chamber</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://www.gutenberg.org/cache/epub/13857/pg13857.cover.medium.jpg" alt="Book 5">
+          <p>Their Wedding Journey</p>
+          <button class="read-btn">Read</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/13518289-L.jpg" alt="Book 6">
+          <p>In One Person</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/8225631-L.jpg" alt="Book 7">
+          <p>Great Expectations</p>
+          <button class="read-btn">Read</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/10242085-L.jpg" alt="Book 8">
+          <p>Jane Eyre</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/8235116-L.jpg" alt="Book 9">
+          <p>Pride and Prejudice</p>
+          <button class="read-btn">Read</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/10519810-L.jpg" alt="Book 10">
+          <p>Crime and Punishment</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/11509275-L.jpg" alt="Book 11">
+          <p>Moby Dick</p>
+          <button class="read-btn">Read</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/8091011-L.jpg" alt="Book 12">
+          <p>The Odyssey</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="book-carousel-nav right" onclick="moveClassicSlide(1)">&#10095;</button>
+  </div>
+</section>
+
+
+
+<script>
+let currentClassicPage = 0;
+
+function moveClassicSlide(direction) {
+  const track = document.getElementById("classicCarouselTrack");
+  const items = track.querySelectorAll(".book-card");
+  const container = document.querySelector(".book-carousel-track-wrapper");
+  const containerWidth = container.offsetWidth;
+  const itemWidth = items[0].offsetWidth;
+  const itemsPerPage = Math.floor(containerWidth / itemWidth);
+  const totalPages = Math.ceil(items.length / itemsPerPage);
+
+  currentClassicPage += direction;
+  if (currentClassicPage < 0) currentClassicPage = 0;
+  if (currentClassicPage >= totalPages) currentClassicPage = totalPages - 1;
+
+  const scrollAmount = currentClassicPage * itemsPerPage * itemWidth;
+  track.style.transform = `translateX(-${scrollAmount}px)`;
+}
+
+window.addEventListener("resize", () => moveClassicSlide(0));
+</script>
+
+
+
+
+<section class="book-carousel">
+  <h2 class="book-carousel-title">Books We Love</h2>
+  <div class="book-carousel-container">
+    <button class="book-carousel-nav left" onclick="moveBooksWeLoveSlide(-1)">&#10094;</button>
+
+    <div class="book-carousel-track-wrapper">
+      <div class="book-carousel-track" id="booksWeLoveTrack">
+     
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/10523358-L.jpg" alt="Book 1">
+          <p>The Catcher in the Rye</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/8225261-L.jpg" alt="Book 2">
+          <p>To Kill a Mockingbird</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/8595540-L.jpg" alt="Book 3">
+          <p>The Odyssey</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/8311976-L.jpg" alt="Book 4">
+          <p>Brave New World</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/10958341-L.jpg" alt="Book 5">
+          <p>The Great Gatsby</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/11608075-L.jpg" alt="Book 6">
+          <p>Pride and Prejudice</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/10423567-L.jpg" alt="Book 7">
+          <p>The Hobbit</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/10188989-L.jpg" alt="Book 8">
+          <p>The Picture of Dorian Gray</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/10663867-L.jpg" alt="Book 9">
+          <p>One Hundred Years of Solitude</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/10577463-L.jpg" alt="Book 10">
+          <p>Crime and Punishment</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/10825788-L.jpg" alt="Book 11">
+          <p>The Alchemist </p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/11023234-L.jpg" alt="Book 12">
+          <p>The Road</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="book-carousel-nav right" onclick="moveBooksWeLoveSlide(1)">&#10095;</button>
+  </div>
+</section>
+
+
+
+
+
+
+
+<script>
+  let currentBooksWeLovePage = 0;
+
+  function moveBooksWeLoveSlide(direction) {
+    const track = document.getElementById("booksWeLoveTrack");
+    const items = track.querySelectorAll(".book-card");
+    const itemsPerPage = 6;
+
+    if (!items.length) return;
+
+    const itemWidth = items[0].offsetWidth;
+    const totalPages = Math.ceil(items.length / itemsPerPage);
+
+    currentBooksWeLovePage += direction;
+    if (currentBooksWeLovePage < 0) currentBooksWeLovePage = 0;
+    if (currentBooksWeLovePage >= totalPages) currentBooksWeLovePage = totalPages - 1;
+
+    const moveX = currentBooksWeLovePage * itemsPerPage * itemWidth;
+    track.style.transform = `translateX(-${moveX}px)`;
+  }
+
+  window.addEventListener("resize", () => moveBooksWeLoveSlide(0));
+  window.addEventListener("load", () => moveBooksWeLoveSlide(0));
+</script>
+
+
+
+<section class="book-carousel">
+  <h2 class="book-carousel-title">Recently Returned</h2>
+  <div class="book-carousel-container">
+    <button class="book-carousel-nav left" onclick="moveBookSlideReturned(-1)">&#10094;</button>
+
+    <div class="book-carousel-track-wrapper">
+      <div class="book-carousel-track" id="bookCarouselTrackReturned">
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/11193035-L.jpg" alt="The Art of Solitude">
+          <p>The Art of Solitude</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/11583648-L.jpg" alt="Gardening Indoors">
+          <p>Gardening Indoors</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/10972952-L.jpg" alt="Mysteries of the Deep">
+          <p>Mysteries of the Deep</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/11222090-L.jpg" alt="Introduction to Philosophy">
+          <p>Introduction to Philosophy</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/11035739-L.jpg" alt="Baking with Love">
+          <p>Baking with Love</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/11342242-L.jpg" alt="Exploring the Stars">
+          <p>Exploring the Stars</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+
+      
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/11182132-L.jpg" alt="Digital Photography Basics">
+          <p>Digital Photography Basics</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/11624567-L.jpg" alt="Stories for Sleep">
+          <p>Stories for Sleep</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/11237680-L.jpg" alt="Mindful Eating Guide">
+          <p>Mindful Eating Guide</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/10892231-L.jpg" alt="Wildlife of the Forest">
+          <p>Wildlife of the Forest</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/10964120-L.jpg" alt="The Quiet City">
+          <p>The Quiet City</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/11448051-L.jpg" alt="Home DIY Projects">
+          <p>Home DIY Projects</p>
+          <button class="borrow-btn">Borrow</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="book-carousel-nav right" onclick="moveBookSlideReturned(1)">&#10095;</button>
+  </div>
+</section>
+
+<script>
+  let currentBookPageReturned = 0;
+
+  function moveBookSlideReturned(direction) {
+    const track = document.getElementById("bookCarouselTrackReturned");
+    const items = track.querySelectorAll(".book-card");
+    const itemsPerPage = 6;
+    const itemWidth = items[0].offsetWidth;
+    const totalPages = Math.ceil(items.length / itemsPerPage);
+
+    currentBookPageReturned += direction;
+    if (currentBookPageReturned < 0) currentBookPageReturned = 0;
+    if (currentBookPageReturned >= totalPages) currentBookPageReturned = totalPages - 1;
+
+    track.style.transform = `translateX(-${currentBookPageReturned * itemsPerPage * itemWidth}px)`;
+  }
+
+  window.addEventListener("resize", () => moveBookSlideReturned(0));
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="around-library">
+
+
+
+<section class="book-carousel-custom">
+  <h2 class="book-carousel-title-custom">Browse by Subject</h2>
+  <div class="book-carousel-container-custom">
+    <button class="book-carousel-nav-custom left" onclick="moveBookSlideCustom(-1)">&#10094;</button>
+
+    <div class="book-carousel-track-wrapper-custom">
+      <div class="book-carousel-track-custom" id="bookCarouselTrackCustom">
+        <div class="book-card-custom">
+          <img src="https://openlibrary.org/static/images/categories/art.svg" alt="Book Cover 1">
+          <p>The Ego and the Dynamic Ground</p>
+          <button>Borrow</button>
+        </div>
+        <div class="book-card-custom">
+          <img src="https://openlibrary.org/static/images/categories/science_fiction.svg" alt="Book Cover 2">
+          <p>Knitting for Kids</p>
+          <button>Borrow</button>
+        </div>
+        <div class="book-card-custom">
+          <img src="https://openlibrary.org/static/images/categories/fantasy.svg" alt="Book Cover 3">
+          <p>Lichens</p>
+          <button>Borrow</button>
+        </div>
+        <div class="book-card-custom">
+          <img src="https://openlibrary.org/static/images/categories/biographies.svg" alt="Book Cover 4">
+          <p>The Teenage Body Book</p>
+          <button>Borrow</button>
+        </div>
+        <div class="book-card-custom">
+          <img src="https://openlibrary.org/static/images/categories/recipes.svg" alt="Book Cover 5">
+          <p>The United Methodist Hymnal</p>
+          <button>Borrow</button>
+        </div>
+        <div class="book-card-custom">
+          <img src="https://openlibrary.org/static/images/categories/romance.svg" alt="Book Cover 6">
+          <p>Knitting Page 2</p>
+          <button>Borrow</button>
+        </div>
+        <div class="book-card-custom">
+          <img src="https://openlibrary.org/static/images/categories/textbooks.svg" alt="Book Cover 7">
+          <p>Another Book</p>
+          <button>Borrow</button>
+        </div>
+        <div class="book-card-custom">
+          <img src="https://openlibrary.org/static/images/categories/children.svg" alt="Book Cover 8">
+          <p>More Knitting</p>
+          <button>Borrow</button>
+        </div>
+        <div class="book-card-custom">
+          <img src="https://openlibrary.org/static/images/categories/history.svg" alt="Book Cover 9">
+          <p>Knitting Book</p>
+          <button>Borrow</button>
+        </div>
+        <div class="book-card-custom">
+          <img src="https://openlibrary.org/static/images/categories/medicine.svg" alt="Book Cover 10">
+          <p>Some Other Title</p>
+          <button>Borrow</button>
+        </div>
+        <div class="book-card-custom">
+          <img src="https://openlibrary.org/static/images/categories/religion.svg" alt="Book Cover 11">
+          <p>Book Eleven</p>
+          <button>Borrow</button>
+        </div>
+        <div class="book-card-custom">
+          <img src="https://openlibrary.org/static/images/categories/mystery_and_detective_stories.svg" alt="Book Cover 12">
+          <p>Final Book</p>
+          <button>Borrow</button>
+        </div>
+      </div>
+    </div>
+    <button class="book-carousel-nav-custom right" onclick="moveBookSlideCustom(1)">&#10095;</button>
+  </div>
+</section>
+
+
+
+
+
+<script>
+  let currentBookPageCustom = 0;
+
+  function moveBookSlideCustom(direction) {
+    const track = document.getElementById("bookCarouselTrackCustom");
+    const items = track.querySelectorAll(".book-card-custom");
+    const itemsPerPage = 6;
+    const itemWidth = items[0].offsetWidth;
+    const totalPages = Math.ceil(items.length / itemsPerPage);
+
+    currentBookPageCustom += direction;
+    if (currentBookPageCustom < 0) currentBookPageCustom = 0;
+    if (currentBookPageCustom >= totalPages) currentBookPageCustom = totalPages - 1;
+
+    track.style.transform = `translateX(-${currentBookPageCustom * itemsPerPage * itemWidth}px)`;
+  }
+
+  window.addEventListener("resize", () => moveBookSlideCustom(0));
+</script>
+
+
+
+
+  <h2>Around the Library</h2>
+  <p>Here's what's happened over the last 28 days.</p>
+  <div class="stats-container">
+    <div class="stat-card">
+      <img src="images/sekill1.jpg" alt="Visitors Stat" />
+      <h3>60,471,672</h3>
+      <p>Unique Visitors</p>
+    </div>
+    <div class="stat-card">
+      <img src="images/sekill2.jpg" alt="Members Stat" />
+      <h3>191,281</h3>
+      <p>New Members</p>
+    </div>
+    <div class="stat-card">
+      <img src="images/sekill3.jpg" alt="Catalog Edits Stat" />
+      <h3>1,056,700</h3>
+      <p>Catalog Edits</p>
+    </div>
+    <div class="stat-card">
+      <img src="images/sekill4.jpg" alt="Lists Created Stat" />
+      <h3>2,900</h3>
+      <p>Lists Created</p>
+    </div>
+    <div class="stat-card">
+      <img src="images/sekill5.jpg" alt="Ebooks Borrowed Stat" />
+      <h3>233,553</h3>
+      <p>Ebooks Borrowed</p>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="about-project-section">
+  <div class="about-project-container">
+    <div class="about-left">
+      <h2>About the Project</h2>
+      <p>
+        Open Library is an open, editable library catalog, building towards a web page for every book ever published.
+        <a href="#">More</a>
+      </p>
+      <p class="small-text">
+        Just like Wikipedia, you can contribute new information or corrections to the catalog.
+        You can browse by <a href="#">subjects</a>, <a href="#">authors</a> or <a href="#">lists</a> members have created.
+        If you love books, why not help build a library?
+      </p>
+    </div>
+
+    <div class="about-right">
+      <h3>Latest Blog Posts</h3>
+      <ul class="blog-posts">
+        <li>
+          <a href="#">Refining the Open Library Catalogue: My Internship Story</a>
+          <span> - 21 mart 2025</span>
+        </li>
+        <li>
+          <a href="#">API Search.json Performance Tuning</a>
+          <span> - 16 yanvar 2025</span>
+        </li>
+        <li>
+          <a href="#">Improving Search, Removing Dead-Ends</a>
+          <span> - 3 oktyabr 2024</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-column">
+      <h4>Open Library</h4>
+      <ul>
+        <li><a href="#">Vision</a></li>
+        <li><a href="#">Volunteer</a></li>
+        <li><a href="#">Partner With Us</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Donate</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Discover</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Books</a></li>
+        <li><a href="#">Authors</a></li>
+        <li><a href="#">Subjects</a></li>
+        <li><a href="#">Collections</a></li>
+        <li><a href="#">Advanced Search</a></li>
+        <li><a href="#">Return to Top</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Develop</h4>
+      <ul>
+        <li><a href="#">Developer Center</a></li>
+        <li><a href="#">API Documentation</a></li>
+        <li><a href="#">Bulk Data Dumps</a></li>
+        <li><a href="#">Writing Bots</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="#">Help Center</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Suggesting Edits</a></li>
+        <li><a href="#">Add a Book</a></li>
+        <li><a href="#">Release Notes</a></li>
+        <li>
+          <button class="icon-btn">✕</button>
+          <button class="icon-btn"><i class="fa-solid fa-cat"></i></button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Change Website Language</h4>
+      <ul>
+        <li><a href="#">Čeština (cs)</a></li>
+        <li><a href="#">Deutsch (de)</a></li>
+        <li><a href="#">English (en)</a></li>
+        <li><a href="#">Español (es)</a></li>
+        <li><a href="#">Français (fr)</a></li>
+        <li><a href="#">हिंदी (hi)</a></li>
+        <li><a href="#">Hrvatski (hr)</a></li>
+        <li><a href="#">Italiano (it)</a></li>
+        <li><a href="#">Português (pt)</a></li>
+        <li><a href="#">Română (ro)</a></li>
+        <li><a href="#">Sardu (sc)</a></li>
+        <li><a href="#">తెలుగు (te)</a></li>
+        <li><a href="#">Українська (uk)</a></li>
+        <li><a href="#">中文 (zh)</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-info">
+      <span class="archive-icon"><i class="fa-solid fa-box-archive"></i></span>
+      <span>
+        Open Library is an initiative of the <a href="#">Internet Archive</a>, a 501(c)(3) non-profit, building a digital library of Internet sites and other cultural artifacts in digital form.
+        Other <a href="#">projects</a> include the <a href="#">Wayback Machine</a>, <a href="#">archive.org</a> and <a href="#">archive-it.org</a>.
+      </span>
+    </div>
+    <div class="footer-version">
+      <a href="#">version 6ade322</a>
+    </div>
+  </div>
+</footer>
+
+
+
+</body>
+</html>
